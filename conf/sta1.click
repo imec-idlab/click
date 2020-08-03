@@ -9,7 +9,7 @@ ipv4_cl :: Classifier(
 
 switch :: PaintSwitch();
 
-tun :: KernelTun(192.168.2.23/24)
+tun :: KernelTun(192.168.2.21/24)
   //-> Print("Kernel TUN", PRINTANNO true, MAXLENGTH 250)
   //-> IPPrint("IP Print")
   -> SetTimestamp
@@ -17,8 +17,8 @@ tun :: KernelTun(192.168.2.23/24)
 
 switch[0]
   -> Queue()
-  // DL Type (0x0800), SRC MAC (WiFi interface), DST MAC (Controller)
-  -> EtherEncap(0x0800, 00:0E:8E:30:9C:DB, 00:25:90:1D:24:D8)
+// DL Type (0x0800), SRC MAC (WiFi interface), DST MAC (Controller)
+  -> EtherEncap(0x0800, 00:0E:8E:30:9C:F2, 00:25:90:1D:24:D8)
   -> ToDevice(wls33);
 
 ipv4_cl[0]
