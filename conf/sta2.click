@@ -1,6 +1,6 @@
 ControlSocket("TCP", 7777, VERBOSE true);
 
-bw_shaper :: BandwidthShaper(5000000B/s) // 40Mbps
+bw_shaper :: BandwidthShaper(12500000B/s) // 100Mbps
 dl_shaper :: DelayShaper(0) // 0 seconds
 
 ipv4_cl :: Classifier(
@@ -17,7 +17,7 @@ tun :: KernelTun(192.168.2.22/24)
 
 switch[0]
   -> Queue()
-// DL Type (0x0800), SRC MAC (WiFi interface), DST MAC (Controller)
+  // DL Type (0x0800), SRC MAC (WiFi interface), DST MAC (Controller)
   -> EtherEncap(0x0800, 00:0E:8E:30:9E:90, 00:25:90:1D:24:D8)
   -> ToDevice(wls33);
 

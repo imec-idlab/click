@@ -1,6 +1,6 @@
 ControlSocket("TCP", 7777, VERBOSE true);
 
-bw_shaper :: BandwidthShaper(5000000B/s) // 40Mbps
+bw_shaper :: BandwidthShaper(12500000B/s) // 100Mbps
 dl_shaper :: DelayShaper(0) // 0 seconds
 
 ipv4_cl :: Classifier(
