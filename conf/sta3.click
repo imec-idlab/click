@@ -46,7 +46,7 @@ ip_cl[1]
 
 FromDevice(wls33)
   //-> Print("From device wls33", PRINTANNO true, MAXLENGTH 250)
-  -> Discard();
+  //-> Discard();
   //-> Queue()
   //-> DelayShaper(10)
-  //-> tun;
+  -> tun;
