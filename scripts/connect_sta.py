@@ -6,6 +6,7 @@ __maintainer__ = 'Pedro Heleno Isolani'
 __email__ = 'pedro.isolani@uantwerpen.be'
 
 import subprocess
+import time
 
 from optparse import OptionParser
 
@@ -25,6 +26,8 @@ parser.add_option('-s', '--sta', type='string', dest='sta',
                   help='STA ID [default: %default]', default='0')
 parser.add_option('-n', '--net', type='string', dest='net',
                   help='Default route to be deleted [default: %default]', default='192.168.2.0')
+parser.add_option('-t', '--time', type='int', dest='time',
+                  help='Default sleep time between commands [default: %default]', default=0)
 
 (options, args) = parser.parse_args()
 
@@ -39,21 +42,23 @@ def run_cmd(cmd):
 # sudo ifconfig wls33 192.168.2.20 netmask 255.255.255.0 up
 cmd = ['sudo', 'ifconfig', options.interface, options.ip, 'netmask', options.netmask, 'up']
 run_cmd(cmd)
+time.sleep(options.time)
 
 # sudo kill all wpa_supplicant
 cmd = ['sudo', 'killall', 'wpa_supplicant']
 run_cmd(cmd)
+time.sleep(options.time)
 
 # sudo wpa_supplicant -B -c /etc/wpa_supplicant/wpa_supplicant.conf -i wls33
 cmd = ['sudo', 'wpa_supplicant', '-B', '-c', options.config, '-i', options.interface]
 run_cmd(cmd)
+time.sleep(options.time)
 
 # starting click
 cmd = ['screen', '-dmS', 'click', 'sudo', './userlevel/click', 'conf/sta' + options.sta +'.click']
 run_cmd(cmd)
+time.sleep(options.time)
 
 # Deleting default route
 cmd = ['sudo', 'route', 'del', '-net', options.net, 'netmask', options.netmask, 'dev', options.interface]
 run_cmd(cmd)
-
-
