@@ -17,12 +17,14 @@ parser.add_option('-i', '--ip', type='string', dest='ip',
                   help='IP address [default: %default]', default='192.168.2.20')
 parser.add_option('-I', '--interface', type='string', dest='interface',
                   help='WiFi interface [default: %default]', default='wls33')
-parser.add_option('-n', '--netmask', type='string', dest='netmask',
+parser.add_option('-m', '--netmask', type='string', dest='netmask',
                   help='Netmask [default: %default]', default='255.255.255.0')
 parser.add_option('-c', '--config', type='string', dest='config',
                   help='Config [default: %default]', default='wpa_supplicant/wpa_supplicant.conf')
 parser.add_option('-s', '--sta', type='string', dest='sta',
-                  help='STA ID [default: %default]', default='1')
+                  help='STA ID [default: %default]', default='0')
+parser.add_option('-n', '--net', type='string', dest='net',
+                  help='Default route to be deleted [default: %default]', default='192.168.2.0')
 
 (options, args) = parser.parse_args()
 
@@ -43,8 +45,11 @@ cmd = ['wpa_supplicant', '-B', '-c', options.config, '-i', options.interface]
 run_cmd(cmd)
 
 # starting click
-cmd = ['screen', '-d', '-m', '-S', 'click', './userlevel/click', 'conf/sta' + options.sta +'.click']
-subprocess.call(cmd)
+cmd = ['screen', '-dmS', 'click', 'sudo', './userlevel/click', 'conf/sta' + options.sta +'.click']
+run_cmd(cmd)
+
+# Deleting default route
+cmd = ['sudo', 'route', 'del', '-net', options.net, 'netmask', options.netmask, 'dev', options.interface]
 run_cmd(cmd)
 
 
