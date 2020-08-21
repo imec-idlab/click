@@ -37,11 +37,11 @@ def run_cmd(cmd):
 
 # Setting the wireless interface up
 # sudo ifconfig wls33 192.168.2.20 netmask 255.255.255.0 up
-cmd = ['ifconfig', options.interface, options.ip, 'netmask', options.netmask, 'up']
+cmd = ['sudo', 'ifconfig', options.interface, options.ip, 'netmask', options.netmask, 'up']
 run_cmd(cmd)
 
 # sudo wpa_supplicant -B -c /etc/wpa_supplicant/wpa_supplicant.conf -i wls33
-cmd = ['wpa_supplicant', '-B', '-c', options.config, '-i', options.interface]
+cmd = ['sudo', 'wpa_supplicant', '-B', '-c', options.config, '-i', options.interface]
 run_cmd(cmd)
 
 # starting click
