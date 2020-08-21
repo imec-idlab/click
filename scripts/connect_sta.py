@@ -40,6 +40,10 @@ def run_cmd(cmd):
 cmd = ['sudo', 'ifconfig', options.interface, options.ip, 'netmask', options.netmask, 'up']
 run_cmd(cmd)
 
+# sudo kill all wpa_supplicant
+cmd = ['sudo', 'killall', 'wpa_supplicant']
+run_cmd(cmd)
+
 # sudo wpa_supplicant -B -c /etc/wpa_supplicant/wpa_supplicant.conf -i wls33
 cmd = ['sudo', 'wpa_supplicant', '-B', '-c', options.config, '-i', options.interface]
 run_cmd(cmd)
