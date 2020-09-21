@@ -19,10 +19,14 @@ tun :: KernelTun(192.168.2.21/24)
   -> SetTimestamp
   -> ipv4_cl;
 
+// Infobase for storing statistics
+infobase :: EmpowerStaInfoBase(PERIOD 1000);
+
 switch[0]
   -> Queue()
   // DL Type (0x0800), SRC MAC (WiFi interface), DST MAC (Controller)
-  -> EtherEncap(0x0800, 00:0E:8E:30:9C:F2, 00:25:90:1D:24:D8)
+  // TODO: - These mac's need to be changed to work with the test environment
+  -> EtherEncap(0x0800, DC:A6:32:65:E7:AA, 94:C6:91:A6:12:35)
   -> ToDevice(wls33);
 
 ipv4_cl[0]
@@ -38,7 +42,9 @@ ip_cl[0]
 
 ip_cl[1]
   //-> Print("DATA", PRINTANNO true, MAXLENGTH 250)
+  -> SavePacketToInfoBase(INFOBASE infobase)
   -> Queue()
+  -> RemovePacketFromInfoBase(INFOBASE infobase)
   -> dl_shaper
   -> bw_shaper
   -> Unqueue()
