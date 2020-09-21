@@ -16,7 +16,7 @@ int EmpowerStaInfoBase::configure(Vector<String> &conf, ErrorHandler *errh) {
 
 
 void EmpowerStaInfoBase::run_timer(Timer *) {
-    click_chatter("Calculating stats....");
+    // click_chatter("Calculating stats....");
 
 
     // Compute the average queue delay

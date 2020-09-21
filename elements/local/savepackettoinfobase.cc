@@ -26,7 +26,7 @@ int SavePacketToInfoBase::configure(Vector<String> &conf, ErrorHandler *errh) {
 }
 
 void SavePacketToInfoBase::push(int, Packet *p){
-	click_chatter("Saving a packet to Infobase");
+	// click_chatter("Saving a packet to Infobase");
 
     int dscp = 0;
     click_ether *eh = (click_ether *) p->data();

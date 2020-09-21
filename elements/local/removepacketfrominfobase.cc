@@ -24,7 +24,7 @@ int RemovePacketFromInfoBase::configure(Vector<String> &conf, ErrorHandler *errh
 }
 
 Packet* RemovePacketFromInfoBase::pull(int){
-    click_chatter("Removing Packet from InfoBase");
+    // click_chatter("Removing Packet from InfoBase");
 
 	Packet* p = input(0).pull();
 	if(p == 0){
